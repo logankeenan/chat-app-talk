@@ -31,6 +31,8 @@ class MessagesController < ApplicationController
         format.html { redirect_to @message, notice: 'Message was successfully created.' }
         format.js
         format.json { render :show, status: :created, location: @message }
+
+        ActionCable.server.broadcast "ChatRoomsChannel#{@message.chat_room_id}", @message
       else
         format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
