@@ -1,0 +1,8 @@
+var messageElement = document.createElement('div');
+messageElement.className = "message";
+messageElement.innerText = "<%= @message.message %>";
+
+var messagesElement = document.getElementById("messages");
+messagesElement.appendChild(messageElement);
+
+document.getElementById("message_message").value = "";

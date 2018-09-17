@@ -1,27 +1,24 @@
-<%= form_with(model: message, local: true) do |form| %>
-  <% if message.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+<%= form_with(model: message, remote: true) do |form| %>
+    <% if message.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
 
-      <ul>
-      <% message.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% message.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= form.label :message %>
+        <%= form.text_field :message %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :message %>
-    <%= form.text_field :message %>
-  </div>
+    <%= form.hidden_field :chat_room_id %>
 
-  <div class="field">
-    <%= form.label :chat_room_id %>
-    <%= form.text_field :chat_room_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div class="actions">
+        <%= form.submit %>
+    </div>
 <% end %>

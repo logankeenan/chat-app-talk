@@ -14,3 +14,5 @@
         </div>
     <% end %>
 </div>
+
+<%= render 'messages/form', message: Message.new(:chat_room_id => @chat_room.id) %>
