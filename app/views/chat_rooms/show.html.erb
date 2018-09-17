@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @chat_room.name %>
-</p>
+    <strong>Name:</strong>
+    <%= @chat_room.name %>
 
-<%= link_to 'Edit', edit_chat_room_path(@chat_room) %> |
-<%= link_to 'Back', chat_rooms_path %>
+</p>
+<h2>Message</h2>
+
+<div id="messages">
+    <% @chat_room.messages.each do |message| %>
+        <div class="message">
+            <%= message.message %>
+        </div>
+    <% end %>
+</div>
