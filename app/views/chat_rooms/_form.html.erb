@@ -1,22 +1,30 @@
 <%= form_with(model: chat_room, local: true) do |form| %>
-  <% if chat_room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
+    <% if chat_room.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
 
-      <ul>
-      <% chat_room.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% chat_room.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= form.label :name %>
+        <%= form.text_field :name %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div>
+        <% @chat_room.chat_room_users.each do |chat_room_user| %>
+            <%= form.fields_for :chat_room_users, chat_room_user do |chat_room_users_fields| %>
+                <%= render 'chat_room_user_fields', f: chat_room_users_fields %>
+            <% end %>
+        <% end %>
+        <%= link_to_add_association 'Add User', form, :chat_room_users %>
+    </div>
+    <div class="actions">
+        <%= form.submit %>
+    </div>
 <% end %>

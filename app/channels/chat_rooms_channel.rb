@@ -1,9 +1,15 @@
 class ChatRoomsChannel < ApplicationCable::Channel
-  def subscribed
-    stream_from "ChatRoomsChannel#{params[:chat_room_id]}"
-  end
+	def subscribed
+		chat_room_id = params[:chat_room_id]
 
-  def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
-  end
+		chat_room = ChatRoom.find(chat_room_id)
+
+		if chat_room.users.include?(current_user)
+			stream_from "ChatRoomsChannel#{chat_room_id}"
+		end
+	end
+
+	def unsubscribed
+		# Any cleanup needed when channel is unsubscribed
+	end
 end

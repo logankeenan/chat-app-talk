@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
         format.js
         format.json { render :show, status: :created, location: @message }
 
-        ActionCable.server.broadcast "ChatRoomsChannel#{@message.chat_room_id}", @message
+        ActionCable.server.broadcast "ChatRoomsChannel#{@message.chat_room_id}", @message.to_json(:include => :user)
       else
         format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }

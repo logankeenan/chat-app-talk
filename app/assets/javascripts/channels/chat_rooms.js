@@ -12,9 +12,10 @@ App.chat_rooms = App.cable.subscriptions.create({
         // Called when the subscription has been terminated by the server
 
         received(data) {
+            var dataParsed = JSON.parse(data);
             var messageElement = document.createElement('div');
             messageElement.className = "message";
-            messageElement.innerText = data.message;
+            messageElement.innerText = `${dataParsed.user.email} says ${dataParsed.message}`;
 
             var messagesElement = document.getElementById("messages");
             messagesElement.appendChild(messageElement);
