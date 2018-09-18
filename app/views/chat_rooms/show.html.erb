@@ -10,7 +10,7 @@
 <div id="messages">
     <% @chat_room.messages.each do |message| %>
         <div class="message">
-            <%= message.message %>
+           <%= message.user.email %> says:  <%= message.message %>
         </div>
     <% end %>
 </div>
